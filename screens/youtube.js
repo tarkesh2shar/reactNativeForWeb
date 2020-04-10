@@ -1,5 +1,7 @@
 import * as React from "react";
 import {} from "@expo/vector-icons";
+import '@expo/match-media'
+import { useMediaQuery } from "react-responsive";
 import {
   View,
   Text,
@@ -16,14 +18,30 @@ export default function Youtube(props) {
   const [value, onChangeText] = React.useState("Tom and jerry");
   const [videos, setvideos] = React.useState([]);
     const [isLoading, setIsLoading] = React.useState(false);
+  const [currentVideo, setcurrentVideo] = React.useState(videos[0])
+  
+  /////////////////////////------------------->mediaQueries Here<-------------//////////////////////
 
-    const [currentVideo, setcurrentVideo] = React.useState(videos[0])
-    
+  const isDesktopOrLaptop = useMediaQuery({
+    query: "(min-device-width: 1224px)"
+  });
+  const isBigScreen = useMediaQuery({ query: "(min-device-width: 1824px)" });
+  const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
+  const isTabletOrMobileDevice = useMediaQuery({
+    query: "(max-device-width: 1224px)"
+  });
+  const isPortrait = useMediaQuery({ query: "(orientation: portrait)" });
+  const isRetina = useMediaQuery({ query: "(min-resolution: 2dppx)" });
+
+  //////////////////////////---------->MediaQuery ends here>--------------//////////////////////////
+
+
+     
     React.useEffect(() => {
         fetchListOfVideos()
     }, [])
 
-    let urlToFetch = `https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyAthAHI0CQwvonGBc6GL_fZJ-Q9RMrveDw&type=video&maxResults=20&q=` 
+    let urlToFetch = `https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyAthAHI0CQwvonGBc6GL_fZJ-Q9RMrveDw&type=video&maxResults=5&q=` 
   const fetchListOfVideos = async () => {
       setIsLoading(true);
       let raw = await fetch(`${urlToFetch}${value}`)
@@ -46,8 +64,12 @@ export default function Youtube(props) {
     
 
   return (
-   
-            <View style={{ display: "flex", flexDirection: "column" }}>
+    <ScrollView>
+      
+      <View style={{ display: "flex", flexDirection: "column" }}>
+
+        {/* Text Button and Search Input */}
+        
       <View
         style={{ display: "flex", flexDirection: "row", alignItems: "center" }}
       >
@@ -62,7 +84,8 @@ export default function Youtube(props) {
         </Text>
       </View>
 
-      <View style={styles.main}>
+        
+      <View style={ isTabletOrMobile?styles.mainMobile :styles.main }>
         {isLoading ? (
           <ActivityIndicator size="large" color="#00c4b4" />
         ) : (
@@ -73,6 +96,7 @@ export default function Youtube(props) {
         )}
       </View>
     </View>
+   </ScrollView>
 
   );
 }
@@ -106,4 +130,11 @@ const styles = StyleSheet.create({
       flexDirection: "row",
 
   },
+  mainMobile: {
+    display: "flex",
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "column",
+  }
 });

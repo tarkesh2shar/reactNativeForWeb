@@ -3,12 +3,17 @@ import { View, Text, StyleSheet } from "react-native";
 // import { WebView } from "react-native-webview";
 import WebView from 'react-native-web-webview';
 
+import '@expo/match-media'
+import { useMediaQuery } from "react-responsive";
+
 const YoutubeLeft = ({ firstVideo }) => {
 
+  const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
+ 
     console.log("running left");
     
   return (
-    <View style={styles.youTubeLeft}>
+    <View style={isTabletOrMobile?styles.youTubeLeftMobile :styles.youTubeLeft}>
       <WebView
         style={styles.iframe}
               source={{
@@ -32,6 +37,12 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
   },
+  youTubeLeftMobile: {
+    width: "40rem",
+    height:"20rem"
+    
+  }
+
 });
 
 export default React.memo(YoutubeLeft);
