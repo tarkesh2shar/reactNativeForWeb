@@ -35,8 +35,6 @@ export default function Youtube(props) {
 
   //////////////////////////---------->MediaQuery ends here>--------------//////////////////////////
 
-
-     
     React.useEffect(() => {
         fetchListOfVideos()
     }, [])
