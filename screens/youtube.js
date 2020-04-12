@@ -39,7 +39,7 @@ export default function Youtube(props) {
         fetchListOfVideos()
     }, [])
 
-    let urlToFetch = `https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyAthAHI0CQwvonGBc6GL_fZJ-Q9RMrveDw&type=video&maxResults=5&q=` 
+    let urlToFetch = `https://www.googleapis.com/youtube/v3/search?part=snippet&key=API_KEY_HERE&type=video&maxResults=5&q=` 
   const fetchListOfVideos = async () => {
       setIsLoading(true);
       let raw = await fetch(`${urlToFetch}${value}`)
