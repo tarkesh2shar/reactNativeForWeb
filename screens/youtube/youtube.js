@@ -19,7 +19,7 @@ const youtube = () => {
   const screenWidth = Math.round(Dimensions.get("window").width);
   const screenHeight = Math.round(Dimensions.get("window").height);
 
-  let urlToFetch = `https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyAI6u1EMoMTLke7djFdIsu3UWMGVvqE9_U&type=video&maxResults=5&q=`;
+  let urlToFetch = `https://www.googleapis.com/youtube/v3/search?part=snippet&key=API_KEY_HERE&type=video&maxResults=5&q=`;
 
   React.useEffect(() => {
     fetchListOfVideos()
